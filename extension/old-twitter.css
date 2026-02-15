@@ -1,0 +1,183 @@
+/* --- Old Twitter Mode (2012-2015 Styles) --- */
+
+:root {
+  --twitter-blue-2012: #0084b4; /* Classic dark blue */
+  --twitter-bg-color: #c0deed; /* Classic default background blue */
+  --twitter-content-bg: #f5f8fa; /* White/Gray mix for content area */
+  --twitter-border-color: #e1e8ed;
+  --twitter-text-dark: #292f33;
+  --twitter-text-light: #8899a6;
+  --twitter-white: #ffffff;
+  --font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Base resets */
+body.old-twitter-mode {
+  background-color: var(--twitter-bg-color) !important;
+  font-family: var(--font-stack) !important;
+  color: var(--twitter-text-dark) !important;
+  background-image: none !important; /* Remove modern dark mode bg */
+}
+
+/* --- Header / Navigation Bar --- */
+/* Force header to look like the classic blue bar - 2012 Style Solid Blue */
+.old-twitter-mode header[role="banner"] {
+  background-color: var(--twitter-blue-2012) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.15) !important;
+  height: 46px !important;
+  max-height: 46px !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25) !important;
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* White logo on blue background */
+.old-twitter-mode header h1 a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #fff !important; 
+}
+
+/* Navigation items - White text on Blue header */
+.old-twitter-mode nav[role="navigation"] a {
+  font-weight: bold !important;
+  font-size: 13px !important;
+  color: rgba(255,255,255,0.7) !important; /* Lighter white for inactive */
+  text-transform: uppercase !important; 
+}
+.old-twitter-mode nav[role="navigation"] a:hover {
+  color: #fff !important;
+}
+.old-twitter-mode nav[role="navigation"] a[aria-selected="true"] {
+  color: #fff !important; /* Active link is bright white */
+  border-bottom: 4px solid #fff !important; /* White underline */
+}
+
+/* --- Tweet Feed Layout --- */
+/* Main timeline container width adjustment (centering) */
+.old-twitter-mode [data-testid="primaryColumn"] {
+  max-width: 600px !important;
+  border: none !important;
+}
+
+/* Hide right and left borders of the main column */
+.old-twitter-mode [data-testid="primaryColumn"] > div {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Individual Tweet Card */
+.old-twitter-mode article {
+  background-color: var(--twitter-white) !important;
+  border: 1px solid var(--twitter-border-color) !important;
+  border-radius: 5px !important; /* Slight rounding for cards */
+  margin-bottom: 10px !important;
+  padding: 10px 15px !important; 
+  /* Compact the padding */
+}
+
+/* Hover effect on tweets */
+.old-twitter-mode article:hover {
+  background-color: #f5f8fa !important;
+}
+
+/* Avatar Images - Square with rounded corners (4px) */
+.old-twitter-mode [data-testid="Tweet-User-Avatar"] img,
+.old-twitter-mode [data-testid="UserAvatar-Container-unknown"] img {
+  border-radius: 4px !important;
+  width: 48px !important;
+  height: 48px !important;
+  box-shadow: 0 1px 1px rgba(136,153,166,0.15);
+}
+
+/* --- Buttons --- */
+/* "Post" / "Tweet" Blue Button */
+.old-twitter-mode [data-testid="tweetButtonInline"], 
+.old-twitter-mode [data-testid="tweetButton"] {
+  background-color: var(--twitter-blue-2012) !important;
+  border: 1px solid #3b88c3 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+  color: #fff !important;
+  font-weight: bold !important;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.15) !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  padding: 6px 16px !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}
+.old-twitter-mode [data-testid="tweetButtonInline"]:hover {
+  background-color: #3b88c3 !important;
+}
+
+/* Follow buttons (White/Gray style) */
+.old-twitter-mode [data-testid$="-follow"], 
+.old-twitter-mode [data-testid$="-unfollow"] {
+  background-color: #f5f8fa !important;
+  border: 1px solid #e1e8ed !important;
+  color: #292f33 !important;
+  font-weight: bold !important;
+  border-radius: 4px !important;
+}
+
+/* --- Search Box --- */
+/* Rounded pill styling */
+.old-twitter-mode [role="search"] form {
+  border-radius: 21px !important;
+  background-color: #f5f8fa !important;
+  border: 1px solid #e1e8ed !important;
+}
+.old-twitter-mode [role="search"] input {
+  background-color: transparent !important;
+  font-size: 12px !important;
+}
+
+/* --- Sidebar --- */
+.old-twitter-mode [data-testid="sidebarColumn"] {
+  background-color: transparent !important;
+}
+/* White card look for detailed sidebar items */
+.old-twitter-mode [data-testid="sidebarColumn"] section {
+  background-color: #fff !important;
+  border: 1px solid #e1e8ed !important;
+  border-radius: 5px !important;
+  margin-bottom: 10px !important;
+  padding: 15px !important;
+}
+
+/* --- Media --- */
+/* Tweet Images - slightly rounded corners (not fully sharp) */
+.old-twitter-mode [data-testid="tweetPhoto"] img {
+  border-radius: 5px !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+/* --- Typography / Icons --- */
+/* Make text darker/sharper */
+.old-twitter-mode div[dir="auto"] span {
+  font-family: var(--font-stack);
+}
+/* Action Icons (Reply, Retweet, Like, Share) - lighter gray */
+.old-twitter-mode [role="group"] svg {
+  color: #aab8c2 !important; 
+}
+/* Retweet Green (classic) */
+.old-twitter-mode [data-testid="retweet"]:hover svg {
+  color: #5c913b !important;
+}
+.old-twitter-mode [data-testid="retweet"] {
+  color: #5c913b !important;
+}
+/* Favorite Star (Yellow/Gold) -- applied via content.js class, styling here */
+.old-twitter-mode .old-twitter-star {
+  /* Dimensions handled by SVG, color handled by fill attribute there */
+}
+
+/* Hide some modern distracting elements globally */
+.old-twitter-mode [aria-label="Verified account"] {
+  /* Often hidden by content.js, but ensure it doesn't take space */
+}
+

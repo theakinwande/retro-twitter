@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Old Twitter Mode",
+  "version": "0.1.0",
+  "description": "Revert X (Twitter) to the classic 2012–2015 look.",
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://twitter.com/*", "*://x.com/*"],
+      "js": ["content.js"],
+      "css": ["old-twitter.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["storage"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon48.png"
+    }
+  }
+}
