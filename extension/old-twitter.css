@@ -1,137 +1,323 @@
-/* --- Old Twitter Mode (2012-2015 Styles) --- */
+/* ========================================================
+   Old Twitter Mode — 2012-2015 Classic Theme
+   ========================================================
+   Targets X.com (formerly Twitter) DOM structure (2024-2025).
+   Uses data-testid and role attributes for stability.
+   Forces light mode regardless of user's X theme setting.
+   ======================================================== */
 
+/* --- Variables --- */
 :root {
-  --twitter-blue-2012: #0084b4;
-  --twitter-bg-color: #c0deed;
-  --twitter-content-bg: #fff;
-  --twitter-border: #e1e8ed;
-  --twitter-text: #292f33;
-  --twitter-subtext: #8899a6;
-  --font-stack: Arial, sans-serif;
+  --otm-blue: #0084b4;          /* Classic Twitter dark blue */
+  --otm-blue-hover: #006d97;
+  --otm-bg: #c0deed;            /* Classic page background */
+  --otm-card-bg: #ffffff;
+  --otm-card-border: #e1e8ed;
+  --otm-text-primary: #14171a;
+  --otm-text-secondary: #657786;
+  --otm-text-link: #1b95e0;
+  --otm-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* 1. Base Structure & Text Visibility */
-body.old-twitter-mode {
-  background-color: var(--twitter-bg-color) !important;
-  font-family: var(--font-stack) !important;
-  color: var(--twitter-text) !important;
-  /* Prevent header overlap */
-  padding-top: 50px !important; 
+/* =========================
+   1. GLOBAL RESET
+   ========================= */
+
+/* Force light background on everything */
+body.old-twitter-mode,
+body.old-twitter-mode #react-root,
+body.old-twitter-mode [id="react-root"] > div,
+body.old-twitter-mode [id="react-root"] > div > div {
+  background-color: var(--otm-bg) !important;
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
+}
+
+/* Kill any background images or gradients X might inject */
+body.old-twitter-mode * {
   background-image: none !important;
 }
 
-/* Force Light Mode visibility even if Dark Mode is on */
-.old-twitter-mode main, .old-twitter-mode [data-testid="primaryColumn"] {
+/* =========================
+   2. LEFT SIDEBAR (Nav)
+   ========================= */
+
+/* The left nav column wrapper */
+body.old-twitter-mode header[role="banner"] {
+  background-color: var(--otm-card-bg) !important;
+  border-right: 1px solid var(--otm-card-border) !important;
+}
+
+/* Nav links: force dark text + classic font */
+body.old-twitter-mode header[role="banner"] nav a,
+body.old-twitter-mode header[role="banner"] a[role="link"] {
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
+  font-size: 19px !important;
+  font-weight: 400 !important;
+}
+body.old-twitter-mode header[role="banner"] nav a:hover,
+body.old-twitter-mode header[role="banner"] a[role="link"]:hover {
+  background-color: rgba(0, 132, 180, 0.1) !important;
+}
+
+/* Nav SVG icons: force classic blue */
+body.old-twitter-mode header[role="banner"] svg {
+  color: var(--otm-blue) !important;
+}
+
+/* The "Post" button in nav */
+body.old-twitter-mode header[role="banner"] a[data-testid="SideNav_NewTweet_Button"],
+body.old-twitter-mode header[role="banner"] a[href="/compose/post"] {
+  background-color: var(--otm-blue) !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--otm-blue-hover) !important;
+}
+body.old-twitter-mode header[role="banner"] a[data-testid="SideNav_NewTweet_Button"] span,
+body.old-twitter-mode header[role="banner"] a[href="/compose/post"] span {
+  color: #fff !important;
+  font-weight: bold !important;
+}
+body.old-twitter-mode header[role="banner"] a[data-testid="SideNav_NewTweet_Button"]:hover {
+  background-color: var(--otm-blue-hover) !important;
+}
+
+/* Logo: tint blue */
+body.old-twitter-mode [aria-label="X"] svg,
+body.old-twitter-mode header h1 svg {
+  color: var(--otm-blue) !important;
+}
+
+/* =========================
+   3. CENTER COLUMN (Feed)
+   ========================= */
+
+/* Primary column container */
+body.old-twitter-mode [data-testid="primaryColumn"] {
+  background-color: var(--otm-bg) !important;
+  border-left: 1px solid var(--otm-card-border) !important;
+  border-right: 1px solid var(--otm-card-border) !important;
+}
+
+/* Remove X's default border styling on the inner divs */
+body.old-twitter-mode [data-testid="primaryColumn"] > div > div {
+  border-color: var(--otm-card-border) !important;
+}
+
+/* Top bar (Home / tabs) */
+body.old-twitter-mode [data-testid="primaryColumn"] > div > div:first-child {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+}
+/* Tab text */
+body.old-twitter-mode [role="tablist"] [role="tab"] span {
+  color: var(--otm-text-secondary) !important;
+  font-family: var(--otm-font) !important;
+  font-weight: bold !important;
+}
+body.old-twitter-mode [role="tablist"] [role="tab"][aria-selected="true"] span {
+  color: var(--otm-text-primary) !important;
+}
+/* Active tab indicator: classic blue line */
+body.old-twitter-mode [role="tablist"] [role="tab"][aria-selected="true"]::after {
+  background-color: var(--otm-blue) !important;
+}
+
+/* =========================
+   4. TWEET CARDS
+   ========================= */
+
+/* Each tweet cell wrapper */
+body.old-twitter-mode [data-testid="cellInnerDiv"] {
   background-color: transparent !important;
 }
 
-/* 2. Header / Navigation */
-.old-twitter-mode header[role="banner"] {
-  background-color: var(--twitter-blue-2012) !important;
-  height: 46px !important;
-  position: fixed !important;
-  top: 0;
-  width: 100%;
-  z-index: 9999 !important;
-  border-bottom: 1px solid rgba(0,0,0,0.1) !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+/* The actual tweet article */
+body.old-twitter-mode article[data-testid="tweet"] {
+  background-color: var(--otm-card-bg) !important;
+  border-bottom: 1px solid var(--otm-card-border) !important;
+  padding: 10px 16px !important;
+}
+body.old-twitter-mode article[data-testid="tweet"]:hover {
+  background-color: #f5f8fa !important;
 }
 
-/* White Text in Header */
-.old-twitter-mode header h1, 
-.old-twitter-mode header nav,
-.old-twitter-mode header a {
-  color: #fff !important;
-}
-.old-twitter-mode header svg {
-  fill: #fff !important;
+/* Force all text inside tweets to be dark */
+body.old-twitter-mode article[data-testid="tweet"] div,
+body.old-twitter-mode article[data-testid="tweet"] span,
+body.old-twitter-mode article[data-testid="tweet"] a {
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
 }
 
-/* 3. The Feed (Center Column) */
-/* Reset the background of the feed container */
-.old-twitter-mode [data-testid="primaryColumn"] > div > div {
-  border-color: transparent !important;
+/* Tweet text specifically */
+body.old-twitter-mode [data-testid="tweetText"] span {
+  color: var(--otm-text-primary) !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
 }
 
-/* Tweet Cards - The most important part */
-.old-twitter-mode article {
-  background-color: #fff !important;
-  border: 1px solid var(--twitter-border) !important;
-  border-radius: 5px !important;
-  margin-bottom: 10px !important;
-  padding: 12px 15px !important;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05) !important;
+/* Links in tweets */
+body.old-twitter-mode [data-testid="tweetText"] a span {
+  color: var(--otm-text-link) !important;
 }
 
-/* Aggressively force text colors inside tweets to be dark (fix for Dark Mode users) */
-.old-twitter-mode article div, 
-.old-twitter-mode article span, 
-.old-twitter-mode article p {
-  color: var(--twitter-text);
-  /* Do not force background here globally or it breaks images/buttons */
-}
-/* Subtext (timestamps, @handles) */
-.old-twitter-mode article time, 
-.old-twitter-mode article [data-testid="User-Name"] div + div span {
-  color: var(--twitter-subtext) !important;
+/* Username / handle / timestamp — lighter gray */
+body.old-twitter-mode article[data-testid="tweet"] time,
+body.old-twitter-mode [data-testid="User-Name"] > div:last-child span {
+  color: var(--otm-text-secondary) !important;
 }
 
-/* 4. Avatars */
-.old-twitter-mode [data-testid="Tweet-User-Avatar"] img,
-.old-twitter-mode [data-testid="UserAvatar-Container-unknown"] img {
-  border-radius: 5px !important;
-  width: 48px !important;
-  height: 48px !important;
-  background-color: #fff !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+/* Display name — bold black */
+body.old-twitter-mode [data-testid="User-Name"] > div:first-child span {
+  color: var(--otm-text-primary) !important;
+  font-weight: bold !important;
 }
 
-/* 5. Buttons & Interactive Elements */
-/* "Tweet" Button */
-.old-twitter-mode [data-testid="tweetButtonInline"] {
-  background-color: var(--twitter-blue-2012) !important;
+/* =========================
+   5. AVATARS — Square!
+   ========================= */
+
+/* Target avatar images specifically */
+body.old-twitter-mode [data-testid="Tweet-User-Avatar"] img,
+body.old-twitter-mode [data-testid="UserAvatar-Container-unknown"] img,
+body.old-twitter-mode [style*="clip-path"] {
   border-radius: 4px !important;
-  min-height: 32px !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
 }
-.old-twitter-mode [data-testid="tweetButtonInline"] span {
+/* Also target the container that may have clip-path */
+body.old-twitter-mode [data-testid="Tweet-User-Avatar"] > div > div,
+body.old-twitter-mode [data-testid="Tweet-User-Avatar"] [style*="clip-path"] {
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+}
+
+/* =========================
+   6. ACTION BUTTONS
+   ========================= */
+
+/* Reply, Retweet, Like, Share — lighter gray icons */
+body.old-twitter-mode [role="group"] div {
+  color: var(--otm-text-secondary) !important;
+}
+body.old-twitter-mode [role="group"] svg {
+  color: var(--otm-text-secondary) !important;
+}
+
+/* Like hover — gold/yellow (classic favorite) */
+body.old-twitter-mode [data-testid="like"]:hover svg {
+  color: #ffac33 !important;
+}
+/* Retweet hover — green (classic) */
+body.old-twitter-mode [data-testid="retweet"]:hover svg {
+  color: #17bf63 !important;
+}
+/* Reply hover — blue */
+body.old-twitter-mode [data-testid="reply"]:hover svg {
+  color: var(--otm-blue) !important;
+}
+
+/* =========================
+   7. COMPOSE BOX
+   ========================= */
+
+/* "What is happening?!" compose area */
+body.old-twitter-mode [data-testid="tweetTextarea_0"],
+body.old-twitter-mode [role="textbox"] {
+  background-color: var(--otm-card-bg) !important;
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
+}
+
+/* Tweet/Post button */
+body.old-twitter-mode [data-testid="tweetButtonInline"] {
+  background-color: var(--otm-blue) !important;
+  border-radius: 4px !important;
+}
+body.old-twitter-mode [data-testid="tweetButtonInline"] span {
   color: #fff !important;
   font-weight: bold !important;
 }
 
-/* Turn off border-radius for inputs generally */
-.old-twitter-mode input, 
-.old-twitter-mode textarea {
-  border-radius: 3px !important;
-  border: 1px solid #ccc !important;
-  color: #000 !important;
+/* =========================
+   8. RIGHT SIDEBAR
+   ========================= */
+
+body.old-twitter-mode [data-testid="sidebarColumn"] {
+  background-color: transparent !important;
 }
 
-/* 6. Sidebar (Right Column) */
-.old-twitter-mode [data-testid="sidebarColumn"] {
-  margin-top: 10px !important;
+/* Search box */
+body.old-twitter-mode [data-testid="sidebarColumn"] [role="search"] {
+  background-color: transparent !important;
 }
-.old-twitter-mode [data-testid="sidebarColumn"] > div > div > div > div {
-  background-color: #fff !important;
-  border: 1px solid var(--twitter-border) !important;
-  border-radius: 6px !important;
-  margin-bottom: 10px !important;
-  overflow: hidden !important;
+body.old-twitter-mode [data-testid="sidebarColumn"] [role="search"] input {
+  background-color: #f5f8fa !important;
+  border: 1px solid var(--otm-card-border) !important;
+  border-radius: 20px !important;
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
 }
 
-/* 7. Hide Elements Logic (Pure CSS Backup) */
-/* Hide modern "Grok" drawer if content.js misses it */
-.old-twitter-mode [data-testid="GrokDrawer"] {
+/* Sidebar cards (Trends, Who to Follow, etc) */
+body.old-twitter-mode [data-testid="sidebarColumn"] section {
+  background-color: var(--otm-card-bg) !important;
+  border: 1px solid var(--otm-card-border) !important;
+  border-radius: 5px !important;
+  margin-bottom: 12px !important;
+}
+/* Sidebar card text */
+body.old-twitter-mode [data-testid="sidebarColumn"] section span {
+  color: var(--otm-text-primary) !important;
+}
+/* Sidebar heading text */
+body.old-twitter-mode [data-testid="sidebarColumn"] h2 span {
+  color: var(--otm-text-primary) !important;
+  font-family: var(--otm-font) !important;
+}
+
+/* =========================
+   9. TWEET IMAGES & MEDIA
+   ========================= */
+
+/* Re-allow background images ONLY for media containers */
+body.old-twitter-mode [data-testid="tweetPhoto"] img,
+body.old-twitter-mode [data-testid="tweetPhoto"],
+body.old-twitter-mode [data-testid="videoPlayer"],
+body.old-twitter-mode video {
+  background-image: unset !important;
+}
+
+body.old-twitter-mode [data-testid="tweetPhoto"] img {
+  border-radius: 5px !important;
+  border: 1px solid var(--otm-card-border) !important;
+}
+
+/* =========================
+   10. MISC CLEANUP
+   ========================= */
+
+/* Remove pill-shaped buttons, make them square-ish */
+body.old-twitter-mode [role="button"] {
+  border-radius: 4px !important;
+}
+
+/* Scrollbar styling (Webkit) */
+body.old-twitter-mode ::-webkit-scrollbar {
+  width: 8px !important;
+}
+body.old-twitter-mode ::-webkit-scrollbar-track {
+  background: var(--otm-bg) !important;
+}
+body.old-twitter-mode ::-webkit-scrollbar-thumb {
+  background: #8899a6 !important;
+  border-radius: 4px !important;
+}
+
+/* Hide Grok */
+body.old-twitter-mode [data-testid="GrokDrawer"] {
   display: none !important;
 }
-
-/* Fix Images */
-.old-twitter-mode [data-testid="tweetPhoto"] img {
-  border-radius: 5px !important;
-}
-
-/* Action Bar (Reply, Retweet, Like) */
-.old-twitter-mode [role="group"] {
-  margin-top: 5px !important;
-}
-
-
